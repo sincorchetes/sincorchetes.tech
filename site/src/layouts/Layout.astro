@@ -1,0 +1,25 @@
+---
+import SEO from '../components/SEO.astro';
+import { ParallaxBackground } from '../components/react/ParallaxBackground';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <SEO title={title} description={description} />
+  </head>
+  <body>
+    <!-- Real-time scroll Parallax Background -->
+    <ParallaxBackground client:load />
+    
+    <slot />
+  </body>
+</html>

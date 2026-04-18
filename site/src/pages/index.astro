@@ -1,0 +1,209 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ScrollTimeline } from '../components/react/ScrollTimeline';
+import { HeroSkills } from '../components/react/HeroSkills';
+import { experiences, openSource, education, certifications, ui } from '../data/cv.es';
+import { LanguageSwitcher } from '../components/react/LanguageSwitcher';
+import { SiPython, SiKubernetes, SiLinux } from 'react-icons/si';
+import { FaBrain, FaBook, FaMotorcycle, FaCheck, FaGraduationCap, FaLinkedin, FaGithub } from 'react-icons/fa';
+import { Sparkles, Snowflake } from 'lucide-react';
+
+const certIconMap: Record<string, any> = {
+  'pcep': SiPython,
+  'cka': SiKubernetes,
+  'k8s-security': SiKubernetes,
+};
+
+
+// Pre-sort or just use as-is from cv.ts
+---
+
+<Layout 
+  title={ui.seo.title} 
+  description={ui.seo.description}
+>
+  <main style="padding-top: 100px;">
+    <LanguageSwitcher currentLang="es" client:load />
+    
+    <!-- HERO SECTION -->
+    <section style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; text-align: center; padding: 0 20px;">
+      <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
+        
+        <!-- Profile Picture -->
+        <div style="margin-bottom: 20px; border-radius: 50%; overflow: hidden; width: 150px; height: 150px; border: 3px solid var(--accent); box-shadow: 0 0 20px rgba(94, 106, 210, 0.4);">
+          <img src="/me.jpg" alt="Profile avatar" style="width: 100%; height: 100%; object-fit: cover;" />
+        </div>
+
+        <div style="font-size: clamp(20px, 4vw, 26px); font-weight: 300; font-family: 'Outfit', sans-serif; margin-bottom: 8px; color: var(--accent-light); letter-spacing: 0.5px;">
+          Álvaro Castillo
+        </div>
+
+        <h1 style="font-size: clamp(40px, 8vw, 80px); line-height: 1.1; margin-bottom: 24px; letter-spacing: -2px;">
+          {ui.hero.role} <br/>
+          <span class="gradient-text">{ui.hero.gradientRole}</span>
+        </h1>
+        
+        <HeroSkills client:load />
+
+        <p style="font-size: clamp(18px, 4vw, 22px); color: var(--text-secondary); margin-bottom: 40px; max-width: 600px; margin-inline: auto;">
+          {ui.hero.description}
+        </p>
+        
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <a href="#experience" style="background: var(--text-primary); color: var(--bg-dark); padding: 14px 28px; border-radius: 30px; text-decoration: none; font-weight: 600; font-family: 'Outfit'; transition: transform 0.2s ease;">
+            {ui.hero.viewExperience}
+          </a>
+          <a href="https://echemosunbitstazo.es" target="_blank" rel="noopener noreferrer" style="background: rgba(94, 106, 210, 0.2); color: var(--accent-light); border: 1px solid var(--accent); padding: 14px 28px; border-radius: 30px; text-decoration: none; font-weight: 600; font-family: 'Outfit'; transition: background 0.2s ease; display: flex; align-items: center; gap: 8px;">
+            <Sparkles size={18} /> {ui.hero.myBlog}
+          </a>
+          <a href="https://nixoshispano.org" target="_blank" rel="noopener noreferrer" style="background: rgba(82, 119, 195, 0.2); color: #82a8ff; border: 1px solid #5277C3; padding: 14px 28px; border-radius: 30px; text-decoration: none; font-weight: 600; font-family: 'Outfit'; transition: background 0.2s ease; display: flex; align-items: center; gap: 8px;">
+            <Snowflake size={18} /> {ui.hero.nixosCommunity}
+          </a>
+          <a href="https://github.com/sincorchetes" target="_blank" rel="noopener noreferrer" style="background: rgba(255,255,255,0.05); color: var(--text-primary); border: 1px solid var(--border-color); padding: 14px 28px; border-radius: 30px; text-decoration: none; font-weight: 500; font-family: 'Outfit'; transition: background 0.2s ease; display: flex; align-items: center; gap: 8px;">
+            <FaGithub size={18} /> GitHub
+          </a>
+          <a href="https://linkedin.com/in/sincorchetes" target="_blank" rel="noopener noreferrer" style="background: rgba(10, 102, 194, 0.15); color: #70b5f9; border: 1px solid #0a66c2; padding: 14px 28px; border-radius: 30px; text-decoration: none; font-weight: 600; font-family: 'Outfit'; transition: background 0.2s ease; display: flex; align-items: center; gap: 8px;">
+            <FaLinkedin size={18} /> LinkedIn
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE SECTION -->
+    <section id="experience" style="padding: 100px 0;">
+      <div style="text-align: center; margin-bottom: 60px;">
+        <h2 style="font-size: 48px; margin-bottom: 16px;">{ui.sections.experience.title} <span class="gradient-text">{ui.sections.experience.gradientTitle}</span></h2>
+        <p style="color: var(--text-muted); font-size: 18px;">{ui.sections.experience.subtitle}</p>
+      </div>
+      
+      <!-- React Scroll Timeline Component -->
+      <ScrollTimeline client:load experiences={experiences} />
+    </section>
+
+    <!-- OPEN SOURCE & COMMUNITIES SECTION -->
+    <section id="open-source" style="padding: 100px 0; background: rgba(0,0,0,0.3); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+      <div style="text-align: center; margin-bottom: 60px;">
+        <h2 style="font-size: 40px; margin-bottom: 16px;">{ui.sections.openSource.title} <span class="gradient-text">{ui.sections.openSource.gradientTitle}</span></h2>
+        <p style="color: var(--text-muted); font-size: 18px;">{ui.sections.openSource.subtitle}</p>
+      </div>
+
+      <ScrollTimeline client:load experiences={openSource} />
+    </section>
+
+    <!-- CERTIFICATIONS SECTION -->
+    <section id="certifications" style="padding: 100px 0;">
+      <div style="max-width: 1000px; margin: 0 auto; padding: 0 20px;">
+        <h2 style="font-size: 40px; margin-bottom: 40px; text-align: center;">{ui.sections.certifications.title}</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; align-items: stretch;">
+          {certifications.map(cert => {
+            const IconComponent = certIconMap[cert.id] || SiLinux;
+            return (
+            <div class="glass-panel" style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+              <div>
+                <div style="display: flex; align-items: center; justify-content: center; background: rgba(94, 106, 210, 0.1); width: 60px; height: 60px; border-radius: 12px; margin-bottom: 20px; border: 1px solid rgba(94, 106, 210, 0.3);">
+                  <IconComponent style={{ fontSize: '32px', color: 'var(--accent)' }} />
+                </div>
+                <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--text-primary); line-height: 1.4;">{cert.title}</h3>
+                <h4 style="font-size: 14px; color: var(--text-secondary); margin-bottom: 24px;">{cert.issuer}</h4>
+              </div>
+              <div style="color: var(--accent); font-size: 13px; font-weight: 600; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto;">
+                {ui.sections.certifications.issued} {cert.date}
+              </div>
+            </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION SECTION -->
+    <section id="education" style="padding: 100px 0; background: rgba(0,0,0,0.2); border-top: 1px solid var(--border-color);">
+      <div style="max-width: 1000px; margin: 0 auto; padding: 0 20px;">
+        <h2 style="font-size: 40px; margin-bottom: 40px; text-align: center;">{ui.sections.education.title}</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; align-items: stretch;">
+          {education.map(edu => (
+            <div class="glass-panel" style="padding: 30px; display: flex; flex-direction: column; height: 100%;">
+              <div style="display: flex; align-items: center; justify-content: center; background: rgba(94, 106, 210, 0.1); width: 60px; height: 60px; border-radius: 12px; margin-bottom: 20px; border: 1px solid rgba(94, 106, 210, 0.3);">
+                <FaGraduationCap style={{ fontSize: '30px', color: 'var(--accent)' }} />
+              </div>
+              <h3 style="font-size: 22px; margin-bottom: 8px; color: var(--text-primary);">{edu.title}</h3>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 16px; color: var(--accent-light); font-size: 15px;">
+                <span style="font-weight: 500;">{edu.institution}</span>
+                <span>{edu.date}</span>
+              </div>
+              <p style="color: var(--text-secondary); font-size: 15px;">
+                {edu.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+    
+    <!-- ABOUT ME & SOFT SKILLS SECTION -->
+    <section id="about" style="padding: 100px 0; border-top: 1px solid var(--border-color); background: radial-gradient(ellipse at bottom, rgba(94, 106, 210, 0.05) 0%, rgba(10, 10, 12, 0) 70%);">
+      <div style="max-width: 1000px; margin: 0 auto; padding: 0 20px;">
+        <h2 style="font-size: 40px; margin-bottom: 40px; text-align: center;">{ui.sections.about.title} <span class="gradient-text">{ui.sections.about.gradientTitle}</span></h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+          
+          <!-- Habilidades -->
+          <div class="glass-panel" style="padding: 30px;">
+            <h3 style="font-size: 22px; margin-bottom: 20px; color: var(--accent-light); display: flex; alignItems: center; gap: 8px;">
+              <FaBrain size={20} />
+              {ui.sections.about.mindset}
+            </h3>
+            <ul style="color: var(--text-secondary); font-size: 16px; line-height: 1.8; list-style-type: none; padding-left: 0;">
+              <li style="display: flex; gap: 8px; margin-bottom: 6px;"><div style="padding-top: 4px;"><FaCheck size={14} color="var(--accent)" /></div> <span>{ui.skills.resilient}</span></li>
+              <li style="display: flex; gap: 8px; margin-bottom: 6px;"><div style="padding-top: 4px;"><FaCheck size={14} color="var(--accent)" /></div> <span>{ui.skills.curious}</span></li>
+              <li style="display: flex; gap: 8px; margin-bottom: 6px;"><div style="padding-top: 4px;"><FaCheck size={14} color="var(--accent)" /></div> <span>{ui.skills.communication}</span></li>
+              <li style="display: flex; gap: 8px; margin-bottom: 6px;"><div style="padding-top: 4px;"><FaCheck size={14} color="var(--accent)" /></div> <span>{ui.skills.teamPlayer}</span></li>
+              <li style="display: flex; gap: 8px;"><div style="padding-top: 4px;"><FaCheck size={14} color="var(--accent)" /></div> <span>{ui.skills.mentoring}</span></li>
+            </ul>
+          </div>
+
+          <!-- Libros -->
+          <div class="glass-panel" style="padding: 30px;">
+            <h3 style="font-size: 22px; margin-bottom: 20px; color: var(--accent-light); display: flex; alignItems: center; gap: 8px;">
+              <FaBook size={20} />
+              {ui.sections.about.books}
+            </h3>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                <strong style="color: var(--text-primary);">Clean Code</strong> <br/> <small style="color: var(--text-muted);">{ui.books.cleanCodeDesc}</small>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                <strong style="color: var(--text-primary);">Inteligencia Emocional</strong> <br/> <small style="color: var(--text-muted);">{ui.books.emotionalIntelligenceDesc}</small>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                <strong style="color: var(--text-primary);">Meditations</strong> <br/> <small style="color: var(--text-muted);">{ui.books.meditationsDesc}</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Personal -->
+          <div class="glass-panel" style="padding: 30px;">
+            <h3 style="font-size: 22px; margin-bottom: 20px; color: var(--accent-light); display: flex; alignItems: center; gap: 8px;">
+              <FaMotorcycle size={22} />
+              {ui.sections.about.personal}
+            </h3>
+            <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.8;">
+              {ui.personal.p1} <br/><br/>
+              {ui.personal.p2}
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer style="text-align: center; padding: 60px 20px; border-top: 1px solid var(--border-color); color: var(--text-muted);">
+      <p style="margin-bottom: 12px;">© {new Date().getFullYear()} Álvaro Castillo. {ui.footer.rights}</p>
+      <p style="font-size: 14px; opacity: 0.7; max-width: 600px; margin: 0 auto; line-height: 1.5;">
+        {ui.footer.ai}
+      </p>
+    </footer>
+
+  </main>
+</Layout>
